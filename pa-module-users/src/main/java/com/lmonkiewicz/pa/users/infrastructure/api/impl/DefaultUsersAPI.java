@@ -7,8 +7,7 @@ import com.lmonkiewicz.pa.users.infrastructure.api.dto.UserInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 /**
  * Created by lmonkiewicz on 2017-08-07.
@@ -23,10 +22,10 @@ public class DefaultUsersAPI implements UsersAPI {
         this.usersService = usersService;
     }
 
-    List<UserInfoDTO> findUsersConnectedToUser(Long userId) {
-        return usersService.findUsersConnectedToUser(userId).stream()
-                .map(this::convertToUserInfoDTO)
-                .collect(Collectors.toList());
+    @Override
+    public Optional<UserInfoDTO> findUser(Long userId) {
+        return usersService.findUser(userId)
+                .map(this::convertToUserInfoDTO);
     }
 
     private UserInfoDTO convertToUserInfoDTO(UserDTO dto) {

@@ -5,8 +5,7 @@ import com.lmonkiewicz.pa.users.domain.service.UsersService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -16,9 +15,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RandomUsersService implements UsersService {
 
     @Override
-    public List<UserDTO> findUsersConnectedToUser(Long userId) {
+    public Optional<UserDTO> findUser(Long userId) {
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        return Arrays.asList(
+        return Optional.of(
                 UserDTO.builder()
                         .id(random.nextLong())
                         .login(generateLogin(random))
